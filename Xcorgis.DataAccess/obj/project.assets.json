@@ -1467,6 +1467,16 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XmlSerializer.dll": {}
         }
+      },
+      "XCorgis.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/XCorgis.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/XCorgis.Domain.dll": {}
+        }
       }
     }
   },
@@ -5643,12 +5653,18 @@
         "system.xml.xmlserializer.4.3.0.nupkg.sha512",
         "system.xml.xmlserializer.nuspec"
       ]
+    },
+    "XCorgis.Domain/1.0.0": {
+      "type": "project",
+      "path": "../XCorgis.Domain/XCorgis.Domain.csproj",
+      "msbuildProject": "../XCorgis.Domain/XCorgis.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Microsoft.EntityFrameworkCore >= 3.1.22",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.22"
+      "Microsoft.EntityFrameworkCore.SqlServer >= 3.1.22",
+      "XCorgis.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -5677,7 +5693,11 @@
       "frameworks": {
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\User\\source\\repos\\XCorgis\\XCorgis.Domain\\XCorgis.Domain.csproj": {
+              "projectPath": "C:\\Users\\User\\source\\repos\\XCorgis\\XCorgis.Domain\\XCorgis.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

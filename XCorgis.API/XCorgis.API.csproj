@@ -11,5 +11,14 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Xcorgis.DataAccess\Xcorgis.DataAccess.csproj" />
+    <ProjectReference Include="..\XCorgis.Domain\XCorgis.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+  </ItemGroup>
+
 
 </Project>

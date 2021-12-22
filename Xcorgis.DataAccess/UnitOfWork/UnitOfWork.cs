@@ -13,10 +13,11 @@ namespace Xcorgis.DataAccess.UnitOfWork
         {
             _context = context;
             Departments = new DepartmentRepository(_context);
+            Products = new ProductRepository(_context);
 
         }
         public IDepartmentRepository Departments { get; private set; }
-
+        public IProductsRepository Products { get; private set; }
         public int Complete()
         {
             return _context.SaveChanges();

@@ -49,5 +49,10 @@ namespace Xcorgis.DataAccess.Repositories
         {
             _context.Set<T>().RemoveRange(entities);
         }
+
+        public void Update(T entity)
+        {
+            _context.Set<T>().Update(entity);
+        }
     }
 }

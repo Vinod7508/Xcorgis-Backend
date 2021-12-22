@@ -47,6 +47,7 @@ namespace XCorgis.API
             #region Repositories
             services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
             services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+            services.AddTransient<IProductsRepository, ProductRepository>();
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             #endregion

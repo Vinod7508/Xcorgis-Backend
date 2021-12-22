@@ -26,7 +26,7 @@ namespace XCorgis.API.Controllers
 
 
         [HttpGet]
-        public IActionResult GetDepartmentNames()
+        public IActionResult GetAllDepartment()
         {
             try
             {
@@ -43,7 +43,6 @@ namespace XCorgis.API.Controllers
 
 
         [HttpGet("{Deptid}")]
-
         public IActionResult GetDepartmentById(int Deptid)
         {
             try
@@ -64,6 +63,120 @@ namespace XCorgis.API.Controllers
                 return StatusCode(500, "Internal server error");
             }
 
+        }
+
+        [HttpPost]
+        public IActionResult CreateDepartment([FromBody] DepartmentCreateDto newdepartment)
+        {
+            try
+            {
+                if (newdepartment == null)
+                {
+                    
+                    return BadRequest("department object is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest("Invalid model object");
+                }
+
+                var departmentEntity = _mapper.Map<Department>(newdepartment);
+                _unitOfWork.Departments.Add(departmentEntity);
+                _unitOfWork.Complete();
+
+                var createddepartment = _mapper.Map<DepartmentDto>(departmentEntity);
+                return Ok(createddepartment);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
+        [HttpGet("{deptid}/products")]
+        public IActionResult GetProductDetails(int deptid)
+        {
+            try
+            {
+                var department = _unitOfWork.Departments.GetAllDetailsofDepartment(deptid);
+                if (department == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    var deptResult = _mapper.Map<DepartmentDto>(department);
+                    return Ok(deptResult);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
+        [HttpPut("{Deptid}")]
+        public IActionResult UpdateOwner(int Deptid, [FromBody] DepartmentUpdateDto department)
+        {
+            try
+            {
+                if (department == null)
+                {
+                   
+                    return BadRequest("Owner object is null");
+                }
+                if (!ModelState.IsValid)
+                {
+                   
+                    return BadRequest("Invalid model object");
+                }
+                var deptEntity = _unitOfWork.Departments.GetById(Deptid);
+                if (deptEntity == null)
+                {
+                  
+                    return NotFound();
+                }
+                _mapper.Map(department, deptEntity);
+                _unitOfWork.Departments.Update(deptEntity);
+                _unitOfWork.Complete();
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
+
+
+        [HttpDelete("{deptid}")]
+        public IActionResult DeleteDepartment(int deptid)
+        {
+            try
+            {
+                var department = _unitOfWork.Departments.GetById(deptid);
+                if (department == null)
+                {
+                    return NotFound();
+                }
+
+                if (_unitOfWork.Products.ProductsByDepartment(deptid).Any())
+                {
+                    return BadRequest("Cannot delete department. It has related products. Delete those products first");
+                }
+
+                _unitOfWork.Departments.Remove(department);
+                _unitOfWork.Complete();
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+              
+                return StatusCode(500, "Internal server error");
+            }
         }
 
 

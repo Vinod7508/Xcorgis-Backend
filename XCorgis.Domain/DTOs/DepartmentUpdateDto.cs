@@ -4,11 +4,10 @@ using System.Text;
 
 namespace XCorgis.Domain.DTOs
 {
-   public class DepartmentDto
+  public class DepartmentUpdateDto
     {
-        public int Id { get; set; }
         public string DepartmentName { get; set; }
         public string AdditionalInformation { get; set; }
-        public IEnumerable<ProductDto> Products { get; set; }
+        public bool isActive { get; set; }
     }
 }

@@ -13,6 +13,9 @@ namespace XCorgis.API.Mapping
         public MappingProfile()
         {
             CreateMap<Department, DepartmentDto>();
+            CreateMap<DepartmentCreateDto, Department>();
+            CreateMap<DepartmentUpdateDto,Department>();
+            CreateMap<Product, ProductDto>();
         }
     }
 }

@@ -15,7 +15,6 @@ namespace XCorgis.Domain.Entities
         public string DepartmentName { get; set; }
         public string AdditionalInformation { get; set; }
         public bool isActive { get; set; }
-
         public ICollection<Product> Products { get; set; }
 
     }

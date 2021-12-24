@@ -12,8 +12,6 @@ namespace Xcorgis.DataAccess
      : base(options)
         { }
 
-
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //department_modelbuilder

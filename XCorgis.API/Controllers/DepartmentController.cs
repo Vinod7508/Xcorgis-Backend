@@ -9,6 +9,7 @@ using XCorgis.Domain.DTOs;
 using XCorgis.Domain.Entities;
 using XCorgis.Domain.Interfaces;
 
+
 namespace XCorgis.API.Controllers
 {
     [Route("api/[controller]")]
@@ -119,14 +120,14 @@ namespace XCorgis.API.Controllers
 
 
         [HttpPut("{Deptid}")]
-        public IActionResult UpdateOwner(int Deptid, [FromBody] DepartmentUpdateDto department)
+        public IActionResult UpdateDepartment(int Deptid, [FromBody] DepartmentUpdateDto department)
         {
             try
             {
                 if (department == null)
                 {
                    
-                    return BadRequest("Owner object is null");
+                    return BadRequest("Department object is null");
                 }
                 if (!ModelState.IsValid)
                 {
@@ -149,6 +150,10 @@ namespace XCorgis.API.Controllers
                 return StatusCode(500, "Internal server error");
             }
         }
+
+
+
+
 
 
         [HttpDelete("{deptid}")]

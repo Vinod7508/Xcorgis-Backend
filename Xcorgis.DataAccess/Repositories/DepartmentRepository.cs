@@ -14,7 +14,7 @@ namespace Xcorgis.DataAccess.Repositories
         public DepartmentRepository(ApplicationContext context) : base(context)
         {}
 
-       
+
 
         public Department GetAllDetailsofDepartment(int deptid)
         {

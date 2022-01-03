@@ -17,5 +17,4 @@
     <ProjectReference Include="..\XCorgis.Domain\XCorgis.Domain.csproj" />
   </ItemGroup>
 
-
 </Project>

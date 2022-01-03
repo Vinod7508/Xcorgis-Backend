@@ -8,7 +8,7 @@ namespace XCorgis.Domain.Entities
     [Table("Products")]
     public class Product
     {
-
+        
         [Column("ProductCode")]
         public int ProductId { get; set; }
         public string ProductDesc { get; set; }

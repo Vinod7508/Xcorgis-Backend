@@ -32,7 +32,6 @@ namespace XCorgis.API
         {
             services.AddControllers();
 
-
             services.AddDbContext<ApplicationContext>(options =>
         options.UseSqlServer(
                   Configuration.GetConnectionString("XCorgis"),
@@ -40,8 +39,6 @@ namespace XCorgis.API
 
 
             services.AddAutoMapper(typeof(Startup));
-
-
 
 
             #region Repositories
@@ -61,8 +58,15 @@ namespace XCorgis.API
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
 
+            //added cross origin support to consume api in frontend framework
+            app.UseCors(x => x
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+
+
+            app.UseHttpsRedirection();
             app.UseRouting();
 
             app.UseAuthorization();

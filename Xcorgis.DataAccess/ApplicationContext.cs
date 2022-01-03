@@ -88,7 +88,7 @@ namespace Xcorgis.DataAccess
         }
 
         public DbSet<Department> Departments { get; set; }
-
+         
 
 
 

@@ -5,7 +5,9 @@ This repository contain backend Asp .NET core based web api which will consume b
 This Backend project devided in three subproject/.net class library projects/layers:
 
    1.XCorgis.API  --> this is api/http controller layer for which will expose the data to front end client application using cors.
+   
    2.XCorgis.Domain --> this layer is domain/entities layer which contains entities related to business logic and interfaces for seperation of concern.
+   
    3.Xcorgis.DataAccess --> this layer contains logic for repository/unit of work design pattern and database migration schema.
 
 # How to run project??

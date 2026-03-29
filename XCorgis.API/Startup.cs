@@ -30,6 +30,8 @@ namespace XCorgis.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
+
             services.AddControllers();
 
             services.AddDbContext<ApplicationContext>(options =>
@@ -58,7 +60,7 @@ namespace XCorgis.API
                 app.UseDeveloperExceptionPage();
             }
 
-
+            app.UseRouting();
             //added cross origin support to consume api in frontend framework
             app.UseCors(x => x
             .AllowAnyOrigin()
@@ -67,7 +69,7 @@ namespace XCorgis.API
 
 
             app.UseHttpsRedirection();
-            app.UseRouting();
+           
 
             app.UseAuthorization();
 

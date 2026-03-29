@@ -9,8 +9,8 @@ using Xcorgis.DataAccess;
 namespace Xcorgis.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20211221124719_Initial_Migration")]
-    partial class Initial_Migration
+    [Migration("20260307203008_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

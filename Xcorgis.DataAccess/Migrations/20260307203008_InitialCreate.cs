@@ -2,7 +2,7 @@
 
 namespace Xcorgis.DataAccess.Migrations
 {
-    public partial class Initial_Migration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

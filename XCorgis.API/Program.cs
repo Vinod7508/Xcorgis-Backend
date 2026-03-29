@@ -1,26 +1,55 @@
-using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Xcorgis.DataAccess;
+using Xcorgis.DataAccess.Repositories;
+using Xcorgis.DataAccess.UnitOfWork;
+using XCorgis.Domain.Interfaces;
 
-namespace XCorgis.API
+var builder = WebApplication.CreateBuilder(args);
+
+// Services (previously ConfigureServices)
+builder.Services.AddCors();
+builder.Services.AddControllers();
+builder.Services.AddDbContext<ApplicationContext>(options =>
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("XCorgis"),
+        b => b.MigrationsAssembly(typeof(ApplicationContext).Assembly.FullName)));
+
+builder.Services.AddAutoMapper(typeof(Program));
+
+builder.Services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddTransient<IProductsRepository, ProductRepository>();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+
+var app = builder.Build();
+
+// Middleware pipeline (previously Configure)
+if (app.Environment.IsDevelopment())
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+    app.UseDeveloperExceptionPage();
 }
+
+app.UseRouting();
+
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+
+app.UseExceptionHandler(a => a.Run(async context =>
+{
+    var exceptionHandlerPathFeature = context.Features.Get<Microsoft.AspNetCore.Diagnostics.IExceptionHandlerPathFeature>();
+    var exception = exceptionHandlerPathFeature?.Error;
+    await context.Response.WriteAsJsonAsync(new { error = exception?.Message, stackTrace = exception?.StackTrace });
+}));
+
+app.Run();
